@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Online Percentage Calculator - Calculate percentages easily with our responsive tool. Solve percentage problems quickly and accurately.">
+    <meta name="keywords" content="percentage calculator, math tool, online calculator, percentage formula, percentage increase">
+    <title>Online Percentage Calculator - Calculate Percentages Instantly</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1a73e8;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .calculator {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .ad-container {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #1557b0;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f0fe;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .ad-container {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Calculateur de Pourcentage</h1>
+            <p>Calculate percentages quickly and easily</p>
+        </header>
+
+        <!-- Top Ad Slot -->
+        <div class="ad-container" id="adslot1">
+            <!-- AdSense Code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <!-- Ad Unit 1 -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="INSERT_ADUNIT_ID_1"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator">
+                <form id="percentageForm">
+                    <div class="form-group">
+                        <label for="calculationType">Calculation Type:</label>
+                        <select id="calculationType" class="form-control">
+                            <option value="xofy">What is X% of Y?</option>
+                            <option value="xisy">X is what % of Y?</option>
+                            <option value="xypct">X is Y% of what?</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="label1" for="value1">X Value:</label>
+                        <input type="number" id="value1" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="label2" for="value2">Y Value:</label>
+                        <input type="number" id="value2" step="any" required>
+                    </div>
+
+                    <button type="button" onclick="calculatePercentage()">Calculate</button>
+                </form>
+
+                <div class="result" id="result"></div>
+            </div>
+
+            <!-- Sidebar Ad Slot -->
+            <div class="ad-container" id="adslot2">
+                <!-- AdSense Code -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                    crossorigin="anonymous"></script>
+                <!-- Ad Unit 2 -->
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                    data-ad-slot="INSERT_ADUNIT_ID_2"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic label updates based on calculation type
+        const calculationType = document.getElementById('calculationType');
+        const label1 = document.getElementById('label1');
+        const label2 = document.getElementById('label2');
+
+        calculationType.addEventListener('change', updateLabels);
+
+        function updateLabels() {
+            const type = calculationType.value;
+            switch(type) {
+                case 'xofy':
+                    label1.textContent = 'Percentage (X):';
+                    label2.textContent = 'Base Value (Y):';
+                    break;
+                case 'xisy':
+                    label1.textContent = 'Result Value (X):';
+                    label2.textContent = 'Base Value (Y):';
+                    break;
+                case 'xypct':
+                    label1.textContent = 'Result Value (X):';
+                    label2.textContent = 'Percentage (Y):';
+                    break;
+            }
+        }
+
+        // Initial label setup
+        updateLabels();
+
+        // Calculation function
+        function calculatePercentage() {
+            const type = calculationType.value;
+            const x = parseFloat(document.getElementById('value1').value);
+            const y = parseFloat(document.getElementById('value2').value);
+            let result;
+
+            if (isNaN(x) || isNaN(y)) {
+                document.getElementById('result').textContent = "Please enter valid numbers";
+                return;
+            }
+
+            switch(type) {
+                case 'xofy':
+                    result = (x * y) / 100;
+                    break;
+                case 'xisy':
+                    result = (x / y) * 100;
+                    break;
+                case 'xypct':
+                    result = (x / y) * 100;
+                    break;
+            }
+
+            document.getElementById('result').textContent = `Result: ${result.toFixed(2)}`;
+        }
+    </script>
+</body>
+  </html>
