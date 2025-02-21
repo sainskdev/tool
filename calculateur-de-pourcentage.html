@@ -3,96 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Online Percentage Calculator - Calculate percentages easily with our responsive tool. Solve percentage problems quickly and accurately.">
-    <meta name="keywords" content="percentage calculator, math tool, online calculator, percentage formula, percentage increase">
-    <title>Online Percentage Calculator - Calculate Percentages Instantly</title>
+    <meta name="description" content="Free Online Percentage Calculator - Calculate percentages, percentage increase/decrease, and proportion problems instantly. Comprehensive guide with examples and FAQs.">
+    <meta name="keywords" content="percentage calculator, math tool, percentage formula, how to calculate percentage, percentage increase, percentage difference">
+    <title>Advanced Percentage Calculator with Step-by-Step Guide | MathToolHub</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --background-color: #f8f9fa;
+            --text-color: #212529;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #f0f2f5;
+            background-color: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
+            font-size: 1.05rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 20px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            color: #1a73e8;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-color), #2673d5);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .calculator-container {
             display: grid;
             grid-template-columns: 1fr 300px;
             gap: 30px;
-            margin-bottom: 30px;
+            margin: 2rem 0;
         }
 
         .calculator {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
         }
 
         .ad-container {
             background: #fff;
-            padding: 15px;
+            padding: 1rem;
             border-radius: 8px;
             text-align: center;
+            margin: 1.5rem 0;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #444;
-            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary-color);
         }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
         }
 
         button {
-            background: #1a73e8;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 6px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         button:hover {
-            background: #1557b0;
+            background: #2673d5;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
         .result {
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
             background: #e8f0fe;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .article-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .article-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+        }
+
+        .article-content h3 {
+            color: var(--secondary-color);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .article-content ul {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
         }
 
         @media (max-width: 768px) {
@@ -100,8 +156,18 @@
                 grid-template-columns: 1fr;
             }
             
-            .ad-container {
-                margin-top: 20px;
+            .header {
+                margin: 1rem 0;
+                padding: 1.5rem 1rem;
+            }
+            
+            .calculator {
+                padding: 1.5rem;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -109,20 +175,20 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Calculateur de Pourcentage</h1>
-            <p>Calculate percentages quickly and easily</p>
+            <h1>Percentage Calculator</h1>
+            <p>Advanced tool for all percentage calculations</p>
         </header>
 
-        <!-- Top Ad Slot -->
-        <div class="ad-container" id="adslot1">
+        <!-- Top Ad -->
+        <div class="ad-container">
             <!-- AdSense Code -->
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
                 crossorigin="anonymous"></script>
-            <!-- Ad Unit 1 -->
+            <!-- Ad Unit -->
             <ins class="adsbygoogle"
                 style="display:block"
                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                data-ad-slot="INSERT_ADUNIT_ID_1"
+                data-ad-slot="INSERT_ADUNIT_ID_TOP"
                 data-ad-format="auto"
                 data-full-width-responsive="true"></ins>
             <script>
@@ -152,22 +218,23 @@
                         <input type="number" id="value2" step="any" required>
                     </div>
 
-                    <button type="button" onclick="calculatePercentage()">Calculate</button>
+                    <button type="button" onclick="calculatePercentage()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calculator"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 12h8M8 18h8M12 6v6m-4 6h4"/></svg>
+                        Calculate
+                    </button>
                 </form>
 
                 <div class="result" id="result"></div>
             </div>
 
-            <!-- Sidebar Ad Slot -->
-            <div class="ad-container" id="adslot2">
-                <!-- AdSense Code -->
+            <!-- Sidebar Ad -->
+            <div class="ad-container">
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
                     crossorigin="anonymous"></script>
-                <!-- Ad Unit 2 -->
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                    data-ad-slot="INSERT_ADUNIT_ID_2"
+                    data-ad-slot="INSERT_ADUNIT_ID_SIDEBAR"
                     data-ad-format="auto"
                     data-full-width-responsive="true"></ins>
                 <script>
@@ -175,46 +242,107 @@
                 </script>
             </div>
         </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <h2>Complete Guide to Using Our Percentage Calculator</h2>
+            
+            <h3>How Does the Percentage Calculator Work?</h3>
+            <p>Our advanced percentage calculator handles three main types of percentage calculations:</p>
+            <ul>
+                <li><strong>What is X% of Y?</strong> - Find the percentage of a number</li>
+                <li><strong>X is what % of Y?</strong> - Determine the percentage ratio</li>
+                <li><strong>X is Y% of what?</strong> - Calculate the base value</li>
+            </ul>
+
+            <h3>Step-by-Step Usage Guide</h3>
+            <ol>
+                <li>Select the calculation type from the dropdown menu</li>
+                <li>Enter the required values in the input fields</li>
+                <li>Click the Calculate button</li>
+                <li>View your result instantly</li>
+            </ol>
+
+            <h3>Real-World Examples</h3>
+            <p><strong>Example 1:</strong> Calculate 20% of 150<br>
+            - Select "What is X% of Y?"<br>
+            - Enter X=20, Y=150<br>
+            - Result: 30</p>
+
+            <p><strong>Example 2:</strong> Find what percentage 75 is of 300<br>
+            - Select "X is what % of Y?"<br>
+            - Enter X=75, Y=300<br>
+            - Result: 25%</p>
+
+            <h3>Why Use Our Percentage Calculator?</h3>
+            <ul>
+                <li>Instant results with precision</li>
+                <li>Mobile-friendly design</li>
+                <li>No registration required</li>
+                <li>Free to use indefinitely</li>
+            </ul>
+
+            <h3>Percentage Calculation Formulas</h3>
+            <p>Behind the scenes, our calculator uses these mathematical formulas:</p>
+            <ul>
+                <li><strong>Percentage of Value:</strong> (X/100) × Y</li>
+                <li><strong>Percentage Ratio:</strong> (X/Y) × 100</li>
+                <li><strong>Base Value Calculation:</strong> (X × 100)/Y</li>
+            </ul>
+
+            <h3>FAQs</h3>
+            <p><strong>Q: Can I calculate percentage increase/decrease?</strong><br>
+            A: Yes, use the "X is what % of Y?" mode where X is the new value and Y is the original value.</p>
+
+            <p><strong>Q: How accurate are the results?</strong><br>
+            A: Results are accurate to two decimal places for precision.</p>
+        </div>
+
+        <!-- Bottom Ad -->
+        <div class="ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="INSERT_ADUNIT_ID_BOTTOM"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
     <script>
-        // Dynamic label updates based on calculation type
+        // Enhanced Calculator Logic
         const calculationType = document.getElementById('calculationType');
-        const label1 = document.getElementById('label1');
-        const label2 = document.getElementById('label2');
+        const inputs = [document.getElementById('value1'), document.getElementById('value2')];
+        const labels = [document.getElementById('label1'), document.getElementById('label2')];
+
+        const updateLabels = () => {
+            const type = calculationType.value;
+            const labelsConfig = {
+                'xofy': ['Percentage (X%)', 'Base Value (Y)'],
+                'xisy': ['Result Value (X)', 'Base Value (Y)'],
+                'xypct': ['Result Value (X)', 'Percentage (Y%)']
+            };
+            labels.forEach((label, index) => {
+                label.textContent = labelsConfig[type][index];
+            });
+        };
 
         calculationType.addEventListener('change', updateLabels);
-
-        function updateLabels() {
-            const type = calculationType.value;
-            switch(type) {
-                case 'xofy':
-                    label1.textContent = 'Percentage (X):';
-                    label2.textContent = 'Base Value (Y):';
-                    break;
-                case 'xisy':
-                    label1.textContent = 'Result Value (X):';
-                    label2.textContent = 'Base Value (Y):';
-                    break;
-                case 'xypct':
-                    label1.textContent = 'Result Value (X):';
-                    label2.textContent = 'Percentage (Y):';
-                    break;
-            }
-        }
-
-        // Initial label setup
         updateLabels();
 
-        // Calculation function
-        function calculatePercentage() {
+        const calculatePercentage = () => {
             const type = calculationType.value;
-            const x = parseFloat(document.getElementById('value1').value);
-            const y = parseFloat(document.getElementById('value2').value);
+            const x = parseFloat(inputs[0].value);
+            const y = parseFloat(inputs[1].value);
             let result;
 
-            if (isNaN(x) || isNaN(y)) {
-                document.getElementById('result').textContent = "Please enter valid numbers";
+            if ([...inputs].some(input => !input.value || isNaN(input.value))) {
+                document.getElementById('result').textContent = "Please enter valid numbers in both fields";
                 return;
             }
 
@@ -230,8 +358,28 @@
                     break;
             }
 
-            document.getElementById('result').textContent = `Result: ${result.toFixed(2)}`;
-        }
+            const resultText = {
+                'xofy': `${x}% of ${y} = ${result.toFixed(2)}`,
+                'xisy': `${x} is ${result.toFixed(2)}% of ${y}`,
+                'xypct': `${x} is ${y}% of ${result.toFixed(2)}`
+            }[type];
+
+            document.getElementById('result').innerHTML = `
+                <div style="color: var(--success-color);">${resultText}</div>
+                <div style="margin-top: 0.5rem; font-size: 0.9em; color: var(--secondary-color);">
+                    Formula Used: ${getFormula(type)}
+                </div>
+            `;
+        };
+
+        const getFormula = (type) => {
+            const formulas = {
+                'xofy': '(X ÷ 100) × Y',
+                'xisy': '(X ÷ Y) × 100',
+                'xypct': '(X × 100) ÷ Y'
+            };
+            return formulas[type];
+        };
     </script>
 </body>
-  </html>
+</html>
