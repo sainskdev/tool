@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculez votre Indice de Masse Corporelle (IMC) instantanément avec notre calculateur IMC gratuit. Obtenez des résultats précis et une classification de santé. Conçu pour mobile et facile à utiliser.">
+    <meta name="keywords" content="Calculateur IMC, Indice de Masse Corporelle, Calculateur de Santé, Gestion du Poids, Outil de Fitness">
+    <meta name="author" content="Outils Santé Pro">
+    <meta name="robots" content="index, follow">
+    <title>Calculateur IMC Gratuit | Résultats Instantanés et Classification de Santé</title>
+
+    <!-- Preconnect for Google Ads -->
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .calculator {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .calculator h1 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .calculator p {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .calculate-btn:hover {
+            background: var(--secondary);
+        }
+
+        .result-card {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: var(--light);
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .bmi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .classification {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .ad-unit {
+            margin: 2rem auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .calculator {
+                padding: 1.5rem;
+            }
+
+            .calculator h1 {
+                font-size: 1.75rem;
+            }
+
+            .bmi-value {
+                font-size: 2rem;
+            }
+
+            .classification {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Ad Unit -->
+        <div class="ad-unit">
+            <!-- Remplacez par votre code AdSense -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Calculateur IMC -->
+        <div class="calculator">
+            <h1>Calculateur IMC</h1>
+            <p>Vérifiez votre Indice de Masse Corporelle et votre classification de santé</p>
+
+            <div class="input-group">
+                <label for="weight">Poids (kg)</label>
+                <input type="number" id="weight" placeholder="Entrez votre poids" min="0" step="0.1">
+            </div>
+
+            <div class="input-group">
+                <label for="height">Taille (cm)</label>
+                <input type="number" id="height" placeholder="Entrez votre taille" min="0">
+            </div>
+
+            <button class="calculate-btn" onclick="calculateBMI()">Calculer l'IMC</button>
+
+            <div id="result" class="result-card hidden">
+                <div class="bmi-value" id="bmiValue">-</div>
+                <div class="classification" id="classification">Entrez vos informations</div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad Unit -->
+        <div class="ad-unit">
+            <!-- Remplacez par votre code AdSense -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const resultCard = document.getElementById('result');
+            const bmiValue = document.getElementById('bmiValue');
+            const classification = document.getElementById('classification');
+
+            if (weight > 0 && height > 0) {
+                const bmi = weight / (height * height);
+                resultCard.classList.remove('hidden');
+                bmiValue.textContent = bmi.toFixed(1);
+                classification.innerHTML = getClassification(bmi);
+                resultCard.style.background = getBMIColor(bmi);
+            } else {
+                resultCard.classList.add('hidden');
+                alert('Veuillez entrer des valeurs valides pour le poids et la taille');
+            }
+        }
+
+        function getClassification(bmi) {
+            if (bmi < 18.5) return `<span style="color:${getBMIColor(bmi)}">Insuffisance pondérale 🚨</span> - Consultez un nutritionniste`;
+            if (bmi < 24.9) return `<span style="color:${getBMIColor(bmi)}">Poids normal ✅</span> - Vous êtes en bonne santé !`;
+            if (bmi < 29.9) return `<span style="color:${getBMIColor(bmi)}">Surpoids ⚠️</span> - Pensez à faire plus d'activité physique`;
+            return `<span style="color:${getBMIColor(bmi)}">Obésité ❗</span> - Consultez un professionnel de santé`;
+        }
+
+        function getBMIColor(bmi) {
+            if (bmi < 18.5) return '#3b82f6'; // Bleu
+            if (bmi < 24.9) return '#10b981'; // Vert
+            if (bmi < 29.9) return '#f59e0b'; // Jaune
+            return '#ef4444'; // Rouge
+        }
+
+        // Validation des entrées
+        document.querySelectorAll('.input-group input').forEach(input => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9.]/g, '');
+                if (e.target.value < 0) e.target.value = '';
+            });
+        });
+    </script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculateur IMC",
+        "description": "Calculateur IMC en ligne gratuit avec résultats instantanés et classification de santé",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Outils Santé Pro"
+        }
+    }
+    </script>
+</body>
+</html>
