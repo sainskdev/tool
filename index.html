@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice Multi-Outils</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Calculatrice Multi-Outils</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tools">Outils</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#more-tools">Plus d'Outils</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">À Propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <i class="fas fa-calculator hero-icon"></i>
+            <h1 class="display-4">Calculatrice Multi-Outils</h1>
+            <p class="lead">Votre solution complète pour divers calculs</p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <section id="tools">
+            <h2 class="text-center mb-4">Nos Outils de Calcul</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <!-- Added hyperlinks to all calculator tools -->
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-birthday-cake tool-icon"></i>
+                                <h5 class="card-title">Calculateur d'Âge</h5>
+                                <p class="card-text">Calculez l'âge à partir de la date de naissance</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-percent tool-icon"></i>
+                                <h5 class="card-title">Calculateur de Pourcentage</h5>
+                                <p class="card-text">Calculez des pourcentages facilement</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-weight tool-icon"></i>
+                                <h5 class="card-title">Calculateur d'IMC</h5>
+                                <p class="card-text">Calculez l'Indice de Masse Corporelle</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-home tool-icon"></i>
+                                <h5 class="card-title">Calculateur de Prêt Hypothécaire</h5>
+                                <p class="card-text">Calculez les mensualités d'un prêt</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-chart-line tool-icon"></i>
+                                <h5 class="card-title">Calculateur d'Intérêts Composés</h5>
+                                <p class="card-text">Calculez les intérêts composés</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-receipt tool-icon"></i>
+                                <h5 class="card-title">Calculateur de TVA</h5>
+                                <p class="card-text">Calculez la Taxe sur la Valeur Ajoutée</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-exchange-alt tool-icon"></i>
+                                <h5 class="card-title">Convertisseur de Devises</h5>
+                                <p class="card-text">Convertissez entre différentes devises</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fas fa-money-bill-wave tool-icon"></i>
+                                <h5 class="card-title">Calculateur de Salaire Net/Brut</h5>
+                                <p class="card-text">Calculez le salaire net et brut</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="more-tools" class="my-5">
+            <div class="bg-light p-5 rounded">
+                <h2 class="text-center mb-4">Découvrez Plus d'Outils</h2>
+                <p class="text-center">Découvrez notre collection complète d'outils de calcul pour résoudre divers problèmes.</p>
+                <div class="text-center">
+                    <a href="#" class="btn btn-primary btn-lg">Découvrir Plus d'Outils</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2025 CodeBySain Made With ❤️ Calculatrice Multi-Outils. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+                                  </html>
