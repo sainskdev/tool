@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice Prêt Immobilier</title>
+    <meta name="description" content="Calculez vos mensualités et capacité d'emprunt pour un prêt immobilier en France.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        h2 {
+            color: #2a5298;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2a5298;
+        }
+        input, select {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #2a5298;
+            outline: none;
+        }
+        button {
+            grid-column: 1 / -1;
+            padding: 1rem;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #1e3c72;
+        }
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f0f5ff;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            color: #2a5298;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid #ddd;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            input, select, button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculatrice Prêt Immobilier</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>Calcul des Mensualités</h2>
+            <p>Estimez vos mensualités en fonction du montant, du taux et de la durée.</p>
+            <form class="form-grid" id="payment-form">
+                <div class="form-group">
+                    <label for="loan-amount">Montant (€)</label>
+                    <input type="number" id="loan-amount" min="0" step="1000" required placeholder="200000">
+                </div>
+                <div class="form-group">
+                    <label for="interest-rate">Taux (%)</label>
+                    <input type="number" id="interest-rate" min="0" step="0.01" required placeholder="2.5">
+                </div>
+                <div class="form-group">
+                    <label for="term">Durée (ans)</label>
+                    <input type="number" id="term" min="1" required placeholder="20">
+                </div>
+                <div class="form-group">
+                    <label for="mortgage-type">Type</label>
+                    <select id="mortgage-type">
+                        <option value="amortizing">Amortissable</option>
+                        <option value="interest-only">In Fine</option>
+                    </select>
+                </div>
+                <button type="button" onclick="calculatePayment()">Calculer</button>
+            </form>
+            <div class="result" id="payment-result"></div>
+        </div>
+
+        <div class="card">
+            <h2>Capacité d'Emprunt</h2>
+            <p>Découvrez votre capacité d'emprunt selon vos revenus et charges.</p>
+            <form class="form-grid" id="borrowing-form">
+                <div class="form-group">
+                    <label for="income">Revenu Annuel (€)</label>
+                    <input type="number" id="income" min="0" step="1000" required placeholder="50000">
+                </div>
+                <div class="form-group">
+                    <label for="outgoings">Charges Mensuelles (€)</label>
+                    <input type="number" id="outgoings" min="0" step="100" required placeholder="1000">
+                </div>
+                <div class="form-group">
+                    <label for="bc-interest-rate">Taux (%)</label>
+                    <input type="number" id="bc-interest-rate" min="0" step="0.01" required placeholder="2.5">
+                </div>
+                <div class="form-group">
+                    <label for="bc-term">Durée (ans)</label>
+                    <input type="number" id="bc-term" min="1" required placeholder="20">
+                </div>
+                <div class="form-group">
+                    <label for="bc-mortgage-type">Type</label>
+                    <select id="bc-mortgage-type">
+                        <option value="amortizing">Amortissable</option>
+                        <option value="interest-only">In Fine</option>
+                    </select>
+                </div>
+                <button type="button" onclick="calculateBorrowingCapacity()">Calculer</button>
+            </form>
+            <div class="result" id="borrowing-result"></div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 sainskdev made with ❤️ Calculatrice Prêt Immobilier</p>
+    </footer>
+    <script>
+        function calculatePayment() {
+            const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100;
+            const termYears = parseInt(document.getElementById('term').value);
+            const mortgageType = document.getElementById('mortgage-type').value;
+
+            if (!loanAmount || !interestRate || !termYears) {
+                document.getElementById('payment-result').innerHTML = 'Veuillez compléter tous les champs.';
+                return;
+            }
+
+            const monthlyRate = interestRate / 12;
+            const numberOfPayments = termYears * 12;
+            let monthlyPayment;
+
+            if (mortgageType === 'amortizing') {
+                monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
+            } else {
+                monthlyPayment = loanAmount * monthlyRate;
+            }
+
+            const formatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
+            let result = `Mensualité : ${formatter.format(monthlyPayment)}`;
+            if (mortgageType === 'interest-only') {
+                result += '<br><small>(In Fine : Capital dû à la fin)</small>';
+            }
+
+            document.getElementById('payment-result').innerHTML = result;
+        }
+
+        function calculateBorrowingCapacity() {
+            const income = parseFloat(document.getElementById('income').value);
+            const outgoings = parseFloat(document.getElementById('outgoings').value);
+            const interestRate = parseFloat(document.getElementById('bc-interest-rate').value) / 100;
+            const termYears = parseInt(document.getElementById('bc-term').value);
+            const mortgageType = document.getElementById('bc-mortgage-type').value;
+
+            if (!income || !outgoings || !interestRate || !termYears) {
+                document.getElementById('borrowing-result').innerHTML = 'Veuillez compléter tous les champs.';
+                return;
+            }
+
+            const monthlyIncome = income / 12;
+            const maxMonthlyCost = (monthlyIncome * 0.33) - outgoings;
+
+            if (maxMonthlyCost <= 0) {
+                document.getElementById('borrowing-result').innerHTML = 'Capacité insuffisante.';
+                return;
+            }
+
+            const monthlyRate = interestRate / 12;
+            const numberOfPayments = termYears * 12;
+            let maxLoanAmount;
+
+            if (mortgageType === 'amortizing') {
+                maxLoanAmount = maxMonthlyCost * (1 - Math.pow(1 + monthlyRate, -numberOfPayments)) / monthlyRate;
+            } else {
+                maxLoanAmount = maxMonthlyCost / monthlyRate;
+            }
+
+            const formatter = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
+            let result = `Montant maximal : ${formatter.format(maxLoanAmount)}<br>Mensualité max : ${formatter.format(maxMonthlyCost)}`;
+            if (mortgageType === 'interest-only') {
+                result += '<br><small>(In Fine : Capital dû à la fin)</small>';
+            }
+
+            document.getElementById('borrowing-result').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
