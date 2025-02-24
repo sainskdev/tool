@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice d'Âge en Ligne Gratuite | Âge en Années, Mois et Jours</title>
+    <meta name="description" content="Découvrez votre âge exact en quelques secondes avec notre Calculateur d'Âge en ligne. Cet outil gratuit et intuitif calcule votre âge à partir de votre date de naissance, avec une précision à la journée près. Parfait pour vérifier votre âge légal, remplir des formulaires administratifs, ou simplement satisfaire votre curiosité.">
+    <meta name="keywords" content="calculatrice âge, calculateur d'âge, âge exact, calcul âge en ligne, outil calcul date">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #CC0000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .input-section {
+            padding: 20px;
+        }
+
+        .input-label {
+            background-color: #f0f2f5;
+            padding: 15px;
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .date-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f0f2f5;
+            margin-bottom: 20px;
+        }
+
+        .calculate-btn, .reset-btn {
+            width: 100%;
+            padding: 15px;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calculate-btn {
+            background-color: #004D4D;
+        }
+
+        .calculate-btn:hover {
+            background-color: #003333;
+        }
+
+        .reset-btn {
+            background-color: #CC0000;
+        }
+
+        .reset-btn:hover {
+            background-color: #990000;
+        }
+
+        .result-header {
+            background-color: #004D4D;
+            color: white;
+            padding: 15px;
+            font-size: 1.5rem;
+        }
+
+        .results {
+            padding: 20px;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .result-item::before {
+            content: "➜";
+            margin-right: 10px;
+            color: #004D4D;
+        }
+
+        .content-section {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #CC0000;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #004D4D;
+            margin: 20px 0 10px;
+        }
+
+        ul {
+            padding-left: 30px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                font-size: 1.5rem;
+            }
+
+            .input-label {
+                font-size: 1.2rem;
+            }
+
+            .date-input {
+                font-size: 1rem;
+            }
+
+            .calculate-btn, .reset-btn {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Calculatrice d'Âge en Ligne</div>
+        
+        <div class="input-section">
+            <div class="input-label">Date de naissance</div>
+            <input type="date" id="birthDate" class="date-input">
+            
+            <div class="input-label">Âge au</div>
+            <input type="date" id="calculateDate" class="date-input">
+            
+            <button class="calculate-btn" onclick="handleAction()">Calculer</button>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="result-header">Âge au <span id="resultDate"></span></div>
+            <div class="results">
+                <div class="result-item" id="yearsResult"></div>
+                <div class="result-item" id="monthsResult"></div>
+                <div class="result-item" id="daysResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>Calculatrice d’Âge en Ligne : Obtenez Votre Âge Exact en Quelques Clics</h2>
+        <p>Vous cherchez un outil fiable pour <strong>calculer votre âge</strong> avec précision ? Notre <strong>calculatrice d’âge en ligne</strong> vous permet de déterminer rapidement votre âge en années, mois et jours. Que ce soit pour des démarches administratives, des événements spéciaux ou par simple curiosité, cet outil gratuit est conçu pour répondre à vos besoins.</p>
+
+        <h3>Comment fonctionne notre calculatrice d’âge ?</h3>
+        <ol>
+            <li><strong>Saisissez votre date de naissance</strong> : Par défaut, le champ est pré-rempli au 1ᵉʳ janvier 2000, mais vous pouvez la modifier.</li>
+            <li><strong>Choisissez une date de calcul</strong> : La date actuelle est sélectionnée automatiquement, mais vous pouvez ajuster ce champ pour connaître votre âge à une date précise (ex. : pour un voyage, un contrat).</li>
+            <li><strong>Cliquez sur "Calculer"</strong> : Obtenez instantanément votre âge exprimé de trois façons :
+                <ul>
+                    <li>Âge en <strong>années, mois et jours</strong></li>
+                    <li>Âge en <strong>mois et jours</strong></li>
+                    <li>Âge en <strong>jours uniquement</strong></li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Pourquoi utiliser notre outil de calcul d’âge ?</h3>
+        <ul>
+            <li><strong>Résultats précis</strong> : Calculez votre âge exact en tenant compte des années bissextiles et de la durée variable des mois.</li>
+            <li><strong>Interface intuitive</strong> : Modifiez facilement les dates et utilisez le bouton <strong>"Réinitialiser"</strong> pour effacer les champs en un clic.</li>
+            <li><strong>Gratuit et accessible</strong> : Aucune inscription requise – utilisez la calculatrice directement depuis votre navigateur.</li>
+        </ul>
+
+        <h3>À qui s’adresse cette calculatrice d’âge ?</h3>
+        <ul>
+            <li><strong>Particuliers</strong> : Pour connaître votre âge exact ou celui d’un proche.</li>
+            <li><strong>Professionnels</strong> : Calculs rapides pour des formulaires, des assurances ou des projets.</li>
+            <li><strong>Étudiants</strong> : Travaux pratiques ou exercices de mathématiques impliquant des dates.</li>
+        </ul>
+    </div>
+
+    <script>
+        // Set default values
+        document.getElementById('birthDate').value = '2000-01-01';
+        document.getElementById('calculateDate').valueAsDate = new Date();
+        
+        let isCalculated = false;
+
+        function handleAction() {
+            if (isCalculated) {
+                resetCalculator();
+            } else {
+                calculateAge();
+            }
+        }
+
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const calculateDate = new Date(document.getElementById('calculateDate').value);
+
+            if (isNaN(birthDate.getTime()) || isNaN(calculateDate.getTime())) {
+                alert('Veuillez sélectionner des dates valides !');
+                return;
+            }
+
+            if (birthDate > calculateDate) {
+                alert('La date de naissance ne peut pas être dans le futur !');
+                return;
+            }
+
+            let years = calculateDate.getFullYear() - birthDate.getFullYear();
+            let months = calculateDate.getMonth() - birthDate.getMonth();
+            let days = calculateDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(calculateDate.getFullYear(), calculateDate.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const totalMonths = years * 12 + months;
+            const diffTime = Math.abs(calculateDate - birthDate);
+            const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('resultDate').textContent = calculateDate.toLocaleDateString('fr-FR');
+            document.getElementById('yearsResult').textContent = `${years} ans ${months} mois ${days} jours`;
+            document.getElementById('monthsResult').textContent = `${totalMonths} mois ${days} jours`;
+            document.getElementById('daysResult').textContent = `${totalDays} jours`;
+
+            // Lock interface
+            document.getElementById('birthDate').disabled = true;
+            const button = document.querySelector('button');
+            button.textContent = 'Réinitialiser';
+            button.className = 'reset-btn';
+            isCalculated = true;
+        }
+
+        function resetCalculator() {
+            document.getElementById('birthDate').value = '2000-01-01';
+            document.getElementById('calculateDate').valueAsDate = new Date();
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('birthDate').disabled = false;
+            
+            const button = document.querySelector('button');
+            button.textContent = 'Calculer';
+            button.className = 'calculate-btn';
+            isCalculated = false;
+        }
+    </script>
+</body>
+</html>
