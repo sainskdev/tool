@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur d'Investissement: Estimez Vos Retours et Optimisez Votre Portefeuille Financier</title>
+  <meta name="description" content="Calculateur d'investissement intelligent pour les résidents français. Comparez les rendements des investissements mensuels et des versements forfaitaires en euros.">
+  <meta name="keywords" content="investissement, calculateur, France, épargne, versement mensuel, versement unique, rendement, finances personnelles">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <style>
+    /* Les styles restent identiques à la version précédente */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      background: #e0e0e0;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .tabs button.active {
+      background: #007bff;
+      color: white;
+      transform: scale(1.02);
+    }
+
+    .form {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    #calculateBtn {
+      width: 100%;
+      padding: 1rem;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    #calculateBtn:hover {
+      background: #218838;
+    }
+
+    .results {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .results p {
+      margin: 0.75rem 0;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .results span {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    #chart {
+      width: 100%;
+      height: 300px;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .tabs button {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculateur d'Investissement</h1>
+    <div class="tabs">
+      <button id="sipTab" class="active">Versement Mensuel</button>
+      <button id="lumpsumTab">Versement Unique</button>
+    </div>
+
+    <!-- Formulaire Mensuel -->
+    <div id="sipForm" class="form">
+      <div class="form-group">
+        <label for="monthlyInvestment">Montant mensuel (€)</label>
+        <input type="number" id="monthlyInvestment" placeholder="Saisir le montant" min="0">
+      </div>
+      <div class="form-group">
+        <label for="expectedReturn">Rendement annuel estimé (%)</label>
+        <input type="number" id="expectedReturn" placeholder="Saisir le taux" min="0" step="0.1">
+      </div>
+      <div class="form-group">
+        <label for="timePeriod">Durée (Années)</label>
+        <input type="number" id="timePeriod" placeholder="Saisir la durée" min="1">
+      </div>
+    </div>
+
+    <!-- Formulaire Unique -->
+    <div id="lumpsumForm" class="form" style="display: none;">
+      <div class="form-group">
+        <label for="totalInvestment">Montant total (€)</label>
+        <input type="number" id="totalInvestment" placeholder="Saisir le montant" min="0">
+      </div>
+      <div class="form-group">
+        <label for="expectedReturnLumpsum">Rendement annuel estimé (%)</label>
+        <input type="number" id="expectedReturnLumpsum" placeholder="Saisir le taux" min="0" step="0.1">
+      </div>
+      <div class="form-group">
+        <label for="timePeriodLumpsum">Durée (Années)</label>
+        <input type="number" id="timePeriodLumpsum" placeholder="Saisir la durée" min="1">
+      </div>
+    </div>
+
+    <button id="calculateBtn">Calculer</button>
+
+    <!-- Résultats -->
+    <div class="results">
+      <h2>Résultats</h2>
+      <p>Montant investi : <span id="investedAmount">0</span> €</p>
+      <p>Plus-value estimée : <span id="estimatedReturns">0</span> €</p>
+      <p>Valeur totale : <span id="totalAmount">0</span> €</p>
+    </div>
+
+    <div id="chart"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sipTab = document.getElementById("sipTab");
+      const lumpsumTab = document.getElementById("lumpsumTab");
+      const sipForm = document.getElementById("sipForm");
+      const lumpsumForm = document.getElementById("lumpsumForm");
+      const calculateBtn = document.getElementById("calculateBtn");
+
+      const inputs = {
+        sip: {
+          amount: document.getElementById("monthlyInvestment"),
+          rate: document.getElementById("expectedReturn"),
+          years: document.getElementById("timePeriod")
+        },
+        lumpsum: {
+          amount: document.getElementById("totalInvestment"),
+          rate: document.getElementById("expectedReturnLumpsum"),
+          years: document.getElementById("timePeriodLumpsum")
+        }
+      };
+
+      const results = {
+        invested: document.getElementById("investedAmount"),
+        returns: document.getElementById("estimatedReturns"),
+        total: document.getElementById("totalAmount")
+      };
+
+      const chartElement = document.getElementById("chart");
+      let chart;
+
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(initializeChart);
+
+      function initializeChart() {
+        chart = new google.visualization.PieChart(chartElement);
+        drawChart(0, 0);
+      }
+
+      function drawChart(invested, returns) {
+        const data = google.visualization.arrayToDataTable([
+          ["Composant", "Montant"],
+          ["Capital investi", invested],
+          ["Plus-value estimée", returns]
+        ]);
+
+        const options = {
+          title: "Répartition de l'investissement",
+          is3D: true,
+          colors: ["#007bff", "#28a745"],
+          pieHole: 0.4,
+          chartArea: { width: "90%", height: "80%" }
+        };
+
+        chart.draw(data, options);
+      }
+
+      function switchTab(activeTab) {
+        sipTab.classList.remove("active");
+        lumpsumTab.classList.remove("active");
+        activeTab.classList.add("active");
+        
+        sipForm.style.display = activeTab === sipTab ? "block" : "none";
+        lumpsumForm.style.display = activeTab === lumpsumTab ? "block" : "none";
+        
+        // Réinitialiser les résultats
+        results.invested.textContent = '0';
+        results.returns.textContent = '0';
+        results.total.textContent = '0';
+        drawChart(0, 0);
+      }
+
+      sipTab.addEventListener("click", () => switchTab(sipTab));
+      lumpsumTab.addEventListener("click", () => switchTab(lumpsumTab));
+
+      function formatNumber(num) {
+        return isNaN(num) ? '0' : num.toLocaleString("fr-FR", { maximumFractionDigits: 0 });
+      }
+
+      function calculateSIP() {
+        const P = parseFloat(inputs.sip.amount.value) || 0;
+        const r = parseFloat(inputs.sip.rate.value.replace(/,/g, '.')) / 100 / 12 || 0;
+        const n = parseFloat(inputs.sip.years.value) * 12 || 0;
+
+        if (r === 0 || n === 0) return;
+
+        const futureValue = P * (((Math.pow(1 + r, n) - 1) / r) * (1 + r));
+        const totalInvested = P * n;
+        const estimatedReturns = futureValue - totalInvested;
+
+        results.invested.textContent = formatNumber(totalInvested);
+        results.returns.textContent = formatNumber(estimatedReturns);
+        results.total.textContent = formatNumber(futureValue);
+
+        drawChart(totalInvested, estimatedReturns);
+      }
+
+      function calculateLumpsum() {
+        const P = parseFloat(inputs.lumpsum.amount.value) || 0;
+        const r = parseFloat(inputs.lumpsum.rate.value.replace(/,/g, '.')) / 100 || 0;
+        const n = parseFloat(inputs.lumpsum.years.value) || 0;
+
+        if (r === 0 || n === 0) return;
+
+        const futureValue = P * Math.pow(1 + r, n);
+        const estimatedReturns = futureValue - P;
+
+        results.invested.textContent = formatNumber(P);
+        results.returns.textContent = formatNumber(estimatedReturns);
+        results.total.textContent = formatNumber(futureValue);
+
+        drawChart(P, estimatedReturns);
+      }
+
+      calculateBtn.addEventListener("click", () => {
+        if (sipTab.classList.contains("active")) {
+          calculateSIP();
+        } else {
+          calculateLumpsum();
+        }
+      });
+
+      // Initialisation
+      switchTab(sipTab);
+      
+      // Gestion du redimensionnement
+      window.addEventListener('resize', () => {
+        drawChart(
+          parseFloat(results.invested.textContent.replace(/\s/g, '')),
+          parseFloat(results.returns.textContent.replace(/\s/g, ''))
+        );
+      });
+    });
+  </script>
+</body>
+</html>
